@@ -1,0 +1,1 @@
+# magic-eight-project-generator
