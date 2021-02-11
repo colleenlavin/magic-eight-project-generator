@@ -4,10 +4,11 @@ import axios from 'axios';
 
 
 const App = () => {
- 
+
   let [language, setLanguage] = useState("");
   let [project, setProject] = useState("");
   let [aesthetic, setAesthetic] = useState("");
+  let [preposition, setPreposition] = useState("");
   const [shake, setShake] = useState(false);
 
   //shake the magic eight ball
@@ -19,6 +20,14 @@ const App = () => {
   const projAPI = async () => {
     animate();
 
+    //get random preposition
+    try {
+      const prepData = await axios.get("http://localhost:5000/prepositions");
+      preposition = prepData.data;
+      setPreposition(preposition);
+    } catch (error) {
+      console.log(error);
+    }
     //get random aesthetic
     try {
       const aesData = await axios.get("http://localhost:5000/aesthetics");
@@ -27,7 +36,7 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
-   
+
 
     //get random project
     try {
@@ -47,7 +56,7 @@ const App = () => {
     } catch (error) {
       console.log(error);
     }
-   
+
   }
 
   useEffect(() => {
@@ -64,7 +73,7 @@ const App = () => {
               <div className="message-holder">
                 <div className="glass">
                   <p id="message">
-                    You will build the most wonderfully {aesthetic} {project} ever written in
+                    You will build the most {preposition} {aesthetic} {project} ever written in
                   <a href={language.docs}>   {language.name}  </a>
                   </p>
                 </div>
